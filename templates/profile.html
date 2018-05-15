@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/css/uikit.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/js/uikit-icons.min.js"></script>
+</head>
+<body>
+<div class="main">
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <a class="uk-navbar-item uk-logo" href="#">MuseTube</a>
+            </ul>
+        </div>
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li>
+                    {% if user %}
+                        <li><a href="/profile">{{ user.username }}</a></li>
+                    {% else %}
+                        <li><a href="/signup">Sign Up</a></li>
+                        <li><a href="/signin">Sign In</a></li>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="uk-child-width-1-2@s uk-text-center" uk-grid>
+        <div>
+            <h3>Add a song!</h3>
+            <form action="/add-song" method="post">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Url</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" name="url" id="form-stacked-text" type="text" placeholder="YouTube url">
+                    </div>
+                </div>
+                <button class="uk-button uk-button-danger">Submit</button>
+            </form>
+
+        </div>
+        <div class="uk-dark uk-background-muted uk-padding">
+
+            <ul class="uk-list uk-list-striped">
+                {% for song in slist %}
+                    <li>
+                        <h4>{{ song.title }}</h4>
+                        <div>
+                            <audio src="{{ song.url }}" controls="true"></audio>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
